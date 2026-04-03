@@ -11,16 +11,24 @@
     <script src="https://cdn.cloud.pspdfkit.com/pspdfkit-web@1.13.0/nutrient-viewer.js"></script>
   </head>
   <body>
-    <div>
-      <input type="file" class="chooseFile" accept="application/pdf" />
-      <button id="loadProblemBtn">Load Memory Problem PDF</button>
-      <button id="loadGoodBtn">Load Working Example PDF</button>
-      <button id="exportBtn" disabled>Export PDF</button>
-      <button id="exportOperationsBtn" disabled>Export Flattened</button>
-      <button id="exportOfficeBtn" disabled>Export Office</button>
-      <button id="exportInstantJsonBtn" disabled>Export InstantJSON</button>
+    <div class="toolbar">
+      <div class="control-group">
+        <label for="documentSelect">Load Document:</label>
+        <select id="documentSelect">
+          <option value="base-memory-problem-example.pdf">Memory Problem PDF</option>
+          <option value="example.pdf">Working Example PDF</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label>Local File:</label>
+        <input type="file" class="chooseFile" accept="application/pdf" />
+      </div>
+      <div class="control-group actions">
+        <button id="exportBtn" disabled class="btn primary">Export PDF</button>
+        <button id="exportOperationsBtn" disabled class="btn secondary">Export Flattened</button>
+        <button id="exportOfficeBtn" disabled class="btn secondary">Export Office</button>
+      </div>
     </div>
-    <br />
     <div class="container"></div>
   </body>
 </html>
