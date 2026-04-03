@@ -1,0 +1,71 @@
+{
+  "name": "nutrient-web-example-typescript",
+  "version": "1.0.0",
+  "description": "Standalone and offline PDF viewer web application built with Nutrient Web SDK and Typescript",
+  "main": "index.js",
+  "keywords": [
+    "typescript",
+    "wasm",
+    "web",
+    "assembly",
+    "pdf",
+    "pdf",
+    "viewer",
+    "webpack",
+    "asm.js",
+    "offline",
+    "indexeddb"
+  ],
+  "author": "Nutrient (https://www.nutrient.io)",
+  "homepage": "https://www.nutrient.io/web",
+  "license": "SEE LICENSE IN https://www.nutrient.io/legal/Nutrient_SDK_User_Evaluation_Subscription_Agreement",
+  "readme": "https://www.nutrient.io/guides/web",
+  "dependencies": {
+    "@nutrient-sdk/viewer": "1.13.0",
+    "serve": "^13.0.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.15.0",
+    "@types/node": "^22.9.1",
+    "ajv": "^8.18.0",
+    "copy-webpack-plugin": "^14.0.0",
+    "copyfiles": "^2.4.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^9.15.0",
+    "html-webpack-plugin": "^5.6.6",
+    "jiti": "^2.6.1",
+    "ncp": "^2.0.0",
+    "prettier": "^3.8.1",
+    "ts-loader": "^9.5.4",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.56.1",
+    "webpack": "^5.105.4",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.2.3"
+  },
+  "scripts": {
+    "copy-files": "copyfiles -u 5 ./node_modules/@nutrient-sdk/viewer/dist/nutrient-viewer-lib/**/*.* ./src/nutrient-viewer-lib",
+    "build": "npm run copy-files && cross-env NODE_ENV=production webpack --config config/webpack.js",
+    "prestart": "npm run copy-files && npm run build",
+    "predev": "npm run copy-files",
+    "dev": "tsc",
+    "start": "serve -l 8080 ./dist",
+    "prestart:dev": "npm run copy-files",
+    "start:dev": "cross-env NODE_ENV=development webpack-dev-server --config config/webpack.js --progress",
+    "lint": "eslint src",
+    "start:e2e": "npm run start:dev"
+  },
+  "overrides": {
+    "path-to-regexp": "^3.3.0",
+    "cross-spawn": "^7.0.6",
+    "http-proxy-middleware": "^2.0.9",
+    "on-headers": "^1.1.0",
+    "serve-handler": {
+      "minimatch": "3.1.4"
+    },
+    "qs": "^6.15.0",
+    "serve": {
+      "ajv": "^8.18.0"
+    }
+  }
+}
