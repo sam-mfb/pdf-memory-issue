@@ -68,6 +68,10 @@ function load(document: string) {
       _instance.addEventListener("annotations.change", () => {
         console.log(`${document} loaded!`);
       });
+      const exportBtn = window.document.getElementById("exportBtn") as HTMLButtonElement | null;
+      if (exportBtn) {
+        exportBtn.disabled = false;
+      }
     })
     .catch(console.error);
 }
@@ -94,5 +98,49 @@ document.addEventListener("change", (event: HTMLInputEvent) => {
     load(objectUrl);
   }
 });
+
+const loadProblemBtn = window.document.getElementById("loadProblemBtn");
+if (loadProblemBtn) {
+  loadProblemBtn.addEventListener("click", () => {
+    NutrientViewer.unload(".container");
+    const exportBtn = window.document.getElementById("exportBtn") as HTMLButtonElement | null;
+    if (exportBtn) exportBtn.disabled = true;
+    load("base-memory-problem-example.pdf");
+  });
+}
+
+const loadGoodBtn = window.document.getElementById("loadGoodBtn");
+if (loadGoodBtn) {
+  loadGoodBtn.addEventListener("click", () => {
+    NutrientViewer.unload(".container");
+    const exportBtn = window.document.getElementById("exportBtn") as HTMLButtonElement | null;
+    if (exportBtn) exportBtn.disabled = true;
+    load("example.pdf");
+  });
+}
+
+const exportBtn = window.document.getElementById("exportBtn");
+if (exportBtn) {
+  exportBtn.addEventListener("click", async () => {
+    if (!(instance instanceof NutrientViewer.Instance)) return;
+    try {
+      console.log("Exporting PDF...");
+      const buffer = await instance.exportPDF();
+      
+      const blob = new Blob([buffer], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "exported.pdf";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      console.log("Export completed!");
+    } catch (e) {
+      console.error("Export failed:", e);
+    }
+  });
+}
 
 load("base-memory-problem-example.pdf");

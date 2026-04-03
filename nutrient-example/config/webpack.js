@@ -34,6 +34,10 @@ const filesToCopy = [
     from: "./assets/base-memory-problem-example.pdf",
     to: "./base-memory-problem-example.pdf",
   },
+  {
+    from: "./assets/example.pdf",
+    to: "./example.pdf",
+  },
 ];
 
 /**
