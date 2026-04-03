@@ -69,9 +69,13 @@ function load(document: string) {
         console.log(`${document} loaded!`);
       });
       const exportBtn = window.document.getElementById("exportBtn") as HTMLButtonElement | null;
-      if (exportBtn) {
-        exportBtn.disabled = false;
-      }
+      if (exportBtn) exportBtn.disabled = false;
+      const exportOperationsBtn = window.document.getElementById("exportOperationsBtn") as HTMLButtonElement | null;
+      if (exportOperationsBtn) exportOperationsBtn.disabled = false;
+      const exportOfficeBtn = window.document.getElementById("exportOfficeBtn") as HTMLButtonElement | null;
+      if (exportOfficeBtn) exportOfficeBtn.disabled = false;
+      const exportInstantJsonBtn = window.document.getElementById("exportInstantJsonBtn") as HTMLButtonElement | null;
+      if (exportInstantJsonBtn) exportInstantJsonBtn.disabled = false;
     })
     .catch(console.error);
 }
@@ -105,6 +109,12 @@ if (loadProblemBtn) {
     NutrientViewer.unload(".container");
     const exportBtn = window.document.getElementById("exportBtn") as HTMLButtonElement | null;
     if (exportBtn) exportBtn.disabled = true;
+    const exportOperationsBtn = window.document.getElementById("exportOperationsBtn") as HTMLButtonElement | null;
+    if (exportOperationsBtn) exportOperationsBtn.disabled = true;
+    const exportOfficeBtn = window.document.getElementById("exportOfficeBtn") as HTMLButtonElement | null;
+    if (exportOfficeBtn) exportOfficeBtn.disabled = true;
+    const exportInstantJsonBtn = window.document.getElementById("exportInstantJsonBtn") as HTMLButtonElement | null;
+    if (exportInstantJsonBtn) exportInstantJsonBtn.disabled = true;
     load("base-memory-problem-example.pdf");
   });
 }
@@ -115,6 +125,12 @@ if (loadGoodBtn) {
     NutrientViewer.unload(".container");
     const exportBtn = window.document.getElementById("exportBtn") as HTMLButtonElement | null;
     if (exportBtn) exportBtn.disabled = true;
+    const exportOperationsBtn = window.document.getElementById("exportOperationsBtn") as HTMLButtonElement | null;
+    if (exportOperationsBtn) exportOperationsBtn.disabled = true;
+    const exportOfficeBtn = window.document.getElementById("exportOfficeBtn") as HTMLButtonElement | null;
+    if (exportOfficeBtn) exportOfficeBtn.disabled = true;
+    const exportInstantJsonBtn = window.document.getElementById("exportInstantJsonBtn") as HTMLButtonElement | null;
+    if (exportInstantJsonBtn) exportInstantJsonBtn.disabled = true;
     load("example.pdf");
   });
 }
@@ -132,6 +148,78 @@ if (exportBtn) {
       const a = document.createElement("a");
       a.href = url;
       a.download = "exported.pdf";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      console.log("Export completed!");
+    } catch (e) {
+      console.error("Export failed:", e);
+    }
+  });
+}
+
+const exportOperationsBtn = window.document.getElementById("exportOperationsBtn");
+if (exportOperationsBtn) {
+  exportOperationsBtn.addEventListener("click", async () => {
+    if (!(instance instanceof NutrientViewer.Instance)) return;
+    try {
+      console.log("Exporting flattened PDF...");
+      const buffer = await instance.exportPDFWithOperations([{ type: "flattenAnnotations" }]);
+      
+      const blob = new Blob([buffer], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "flattened.pdf";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      console.log("Export completed!");
+    } catch (e) {
+      console.error("Export failed:", e);
+    }
+  });
+}
+
+const exportOfficeBtn = window.document.getElementById("exportOfficeBtn");
+if (exportOfficeBtn) {
+  exportOfficeBtn.addEventListener("click", async () => {
+    if (!(instance instanceof NutrientViewer.Instance)) return;
+    try {
+      console.log("Exporting to Office format...");
+      const buffer = await instance.exportOffice({} as any);
+      
+      const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "exported.docx";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      console.log("Export completed!");
+    } catch (e) {
+      console.error("Export failed:", e);
+    }
+  });
+}
+
+const exportInstantJsonBtn = window.document.getElementById("exportInstantJsonBtn");
+if (exportInstantJsonBtn) {
+  exportInstantJsonBtn.addEventListener("click", async () => {
+    if (!(instance instanceof NutrientViewer.Instance)) return;
+    try {
+      console.log("Exporting InstantJSON...");
+      const json = await instance.exportInstantJSON();
+      
+      const blob = new Blob([JSON.stringify(json, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "annotations.json";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
