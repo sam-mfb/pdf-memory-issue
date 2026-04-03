@@ -1,0 +1,18 @@
+Object Types Count:
+StructElem: 14851
+XObject: 1237
+ExtGState: 574
+Page: 478
+Font: 286
+Pagination: 249
+FontDescriptor: 217
+Pages: 166
+Group: 146
+MCR: 24
+Encoding: 19
+Pattern: 12
+Metadata: 6
+Annot: 5
+Catalog: 1
+Outlines: 1
+StructTreeRoot: 1
