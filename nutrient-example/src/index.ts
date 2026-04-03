@@ -189,7 +189,7 @@ if (exportOfficeBtn) {
     if (!(instance instanceof NutrientViewer.Instance)) return;
     try {
       console.log("Exporting to Office format...");
-      const buffer = await instance.exportOffice({} as any);
+      const buffer = await instance.exportOffice({ format: NutrientViewer.OfficeDocumentFormat.docx });
       
       const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
       const url = URL.createObjectURL(blob);
