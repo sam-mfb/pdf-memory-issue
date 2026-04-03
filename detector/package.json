@@ -1,0 +1,16 @@
+{
+  "name": "pdf-memory-detector",
+  "version": "1.0.0",
+  "description": "Detects PDF memory explosions",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc && esbuild src/browser-example.ts --bundle --outfile=dist/browser-example.bundle.js",
+    "start": "node dist/cli.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "esbuild": "^0.19.0",
+    "@types/node": "^20.0.0"
+  }
+}

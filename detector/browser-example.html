@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Memory Explosion Detector</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+        pre { background: #f4f4f4; padding: 15px; border-radius: 5px; font-size: 14px; overflow-x: auto;}
+    </style>
+</head>
+<body>
+    <h2>Check PDF for Memory Issues</h2>
+    <p>This runs the TypeScript detector library entirely in the browser using the File API, without needing to upload the file to a server.</p>
+    <input type="file" id="fileInput" accept="application/pdf" />
+    <pre id="output">Select a PDF file above to see the analysis...</pre>
+
+    <!-- Load the bundled version of our TypeScript code -->
+    <script src="dist/browser-example.bundle.js"></script>
+</body>
+</html>
